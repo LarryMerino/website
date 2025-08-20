@@ -1,5 +1,6 @@
-import type { Metadata } from "next";
 import { ThemeModeScript } from "flowbite-react";
+import type { Metadata } from "next";
+import { ThemeInit } from "@/.flowbite-react/init";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -17,7 +18,10 @@ export default function RootLayout({
       <head>
         <ThemeModeScript />
       </head>
-      <body>{children}</body>
+        <body>
+          <ThemeInit />
+          {children}
+        </body>
     </html>
   );
 }
