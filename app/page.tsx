@@ -1,10 +1,7 @@
-import { DarkThemeToggle } from "flowbite-react";
-
-export default function Page(){
-  return(
+export default function Page() {
+  return (
     <main>
-      <DarkThemeToggle />
-      <h1>Welcome to my website</h1>
+      <h1>HOME PAGE</h1>
     </main>
   );
 }
