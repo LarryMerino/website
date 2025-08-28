@@ -12,7 +12,7 @@ export const NavigationSheet = () => {
           <Menu />
         </Button>
       </SheetTrigger>
-      <SheetContent className="p-6 sm:p-8 md:p-12 max-w-xs sm:max-w-sm md:max-w-md bg-white shadow-lg rounded-lg">
+      <SheetContent className="p-6 sm:p-8 md:p-12 max-w-xs sm:max-w-sm md:max-w-md shadow-lg rounded-lg">
         <div className="flex flex-col items-start gap-6">
           <Logo />
           <NavMenu orientation="vertical" className="space-y-4 text-lg" />
