@@ -20,7 +20,12 @@ export function ModeToggle() {
 
   if (!mounted) {
     return (
-      <Button variant="outline" size="icon" disabled>
+      <Button
+        variant="ghost"
+        size="icon"
+        disabled
+        className="rounded-xl bg-transparent border-0 text-foreground/50 dark:bg-primary/10 dark:text-foreground/70"
+      >
         <Sun className="h-[1.2rem] w-[1.2rem]" />
         <span className="sr-only">Toggle theme</span>
       </Button>
@@ -28,7 +33,12 @@ export function ModeToggle() {
   }
 
   return (
-    <Button variant="outline" size="icon" onClick={toggleTheme}>
+    <Button
+      variant="ghost"
+      size="icon"
+      onClick={toggleTheme}
+      className="rounded-xl bg-transparent hover:bg-accent/20 border-0 transition-all duration-300 shadow-sm hover:shadow-md dark:bg-transparent dark:hover:bg-primary/20 dark:hover:text-white"
+    >
       {resolvedTheme === "dark" ? (
         <Sun className="h-[1.2rem] w-[1.2rem]" />
       ) : (
