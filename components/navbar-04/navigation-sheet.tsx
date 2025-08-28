@@ -14,7 +14,11 @@ export const NavigationSheet = () => {
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <Button variant="outline" size="icon" className="rounded-full">
+        <Button
+          variant="outline"
+          size="icon"
+          className="rounded-full hover:bg-accent/20 hover:text-foreground hover:border-accent/30 dark:hover:bg-primary/20 dark:hover:text-white dark:hover:border-primary/30"
+        >
           <Menu />
         </Button>
       </SheetTrigger>
