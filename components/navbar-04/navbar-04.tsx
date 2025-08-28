@@ -1,7 +1,7 @@
-import { Logo } from "./logo";
-import { NavMenu } from "./nav-menu";
-import { NavigationSheet } from "./navigation-sheet";
-import { ModeToggle } from "../mode-toggle";
+import { Logo } from "@/components/navbar-04/logo";
+import { NavMenu } from "@/components/navbar-04/nav-menu";
+import { NavigationSheet } from "@/components/navbar-04/navigation-sheet";
+import { ModeToggle } from "@/components/mode-toggle";
 
 const Navbar04Page = () => {
   return (
