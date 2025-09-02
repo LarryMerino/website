@@ -14,10 +14,10 @@ const Hero02 = () => {
     <div className="min-h-screen flex items-start justify-center pt-20 sm:pt-32 lg:pt-40">
       <div className="max-w-screen-xl w-full mx-auto grid lg:grid-cols-2 gap-12 px-6 py-8 sm:py-12">
         <div>
-          <h1 className="max-w-[17ch] text-4xl md:text-5xl lg:text-[2.75rem] xl:text-5xl font-bold !leading-[1.2]">
+          <h1 className="max-w-[17ch] text-4xl md:text-5xl lg:text-[2.75rem] xl:text-5xl [font-family:var(--font-poppins)] font-bold !leading-[1.2]">
             Customized Shadcn UI Blocks & Components
           </h1>
-          <p className="mt-6 max-w-[60ch] text-lg">
+          <p className="mt-6 max-w-[60ch] text-lg [font-family:var(--font-inter)] font-normal">
             Explore a collection of Shadcn UI blocks and components, ready to
             preview and copy. Streamline your development workflow with
             easy-to-implement examples.

@@ -29,7 +29,10 @@ export const NavigationSheet = () => {
         </SheetDescription>
         <div className="flex flex-col items-start gap-6">
           <Logo />
-          <NavMenu orientation="vertical" className="space-y-4 text-lg" />
+          <NavMenu
+            orientation="vertical"
+            className="space-y-4 text-lg [font-family:var(--font-poppins)]"
+          />
         </div>
       </SheetContent>
     </Sheet>

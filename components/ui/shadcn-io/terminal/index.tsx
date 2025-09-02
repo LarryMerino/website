@@ -9,7 +9,7 @@ import React from "react";
  * Shared typography class applied to all terminal line containers.
  * Keeps visual consistency (size, weight, tracking) across components.
  */
-const BASE_TEXT_CLASS = "text-sm font-normal tracking-tight";
+const BASE_TEXT_CLASS = "text-sm font-normal tracking-tight font-mono";
 
 /**
  * Generic component type detection with minimal React.lazy support.
