@@ -1,5 +1,12 @@
 import { Button } from "@/components/ui/button";
 import { ArrowUpRight, CirclePlay } from "lucide-react";
+import {
+  Terminal,
+  AnimatedSpan,
+  LeadingChar,
+  AnimatedContent,
+  TypingAnimation,
+} from "@/components/ui/shadcn-io/terminal";
 import React from "react";
 
 const Hero02 = () => {
@@ -28,7 +35,34 @@ const Hero02 = () => {
             </Button>
           </div>
         </div>
-        <div className="w-full aspect-video bg-accent rounded-xl" />
+        <div className="w-full">
+          <Terminal className="w-full max-w-none">
+            <AnimatedSpan delay={0}>
+              <LeadingChar className="text-green-500">$</LeadingChar>
+              <AnimatedContent>make iot_product</AnimatedContent>
+            </AnimatedSpan>
+            <TypingAnimation delay={1000} duration={55}>
+              <LeadingChar className="text-blue-500">[INFO]</LeadingChar>
+              <AnimatedContent>Building IoT system...</AnimatedContent>
+            </TypingAnimation>
+            <TypingAnimation delay={3400} duration={55}>
+              <LeadingChar className="text-green-500">[OK]</LeadingChar>
+              <AnimatedContent>Optimizing for low-power</AnimatedContent>
+            </TypingAnimation>
+            <TypingAnimation delay={5800} duration={55}>
+              <LeadingChar className="text-green-500">[OK]</LeadingChar>
+              <AnimatedContent>Ensuring reliability</AnimatedContent>
+            </TypingAnimation>
+            <TypingAnimation delay={8200} duration={55}>
+              <LeadingChar className="text-green-500">[OK]</LeadingChar>
+              <AnimatedContent>Preparing for production</AnimatedContent>
+            </TypingAnimation>
+            <TypingAnimation delay={10600} duration={55}>
+              <LeadingChar>🚀</LeadingChar>
+              <AnimatedContent>Deployment ready!</AnimatedContent>
+            </TypingAnimation>
+          </Terminal>
+        </div>
       </div>
     </div>
   );
