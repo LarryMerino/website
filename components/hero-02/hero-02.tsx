@@ -15,12 +15,11 @@ const Hero02 = () => {
       <div className="max-w-screen-xl w-full mx-auto grid lg:grid-cols-2 gap-12 px-6 py-8 sm:py-12">
         <div>
           <h1 className="max-w-[17ch] text-4xl md:text-5xl lg:text-[2.75rem] xl:text-5xl [font-family:var(--font-poppins)] font-bold !leading-[1.2]">
-            Customized Shadcn UI Blocks & Components
+            Embedded Software Engineer
           </h1>
           <p className="mt-6 max-w-[60ch] text-lg [font-family:var(--font-inter)] font-normal">
-            Explore a collection of Shadcn UI blocks and components, ready to
-            preview and copy. Streamline your development workflow with
-            easy-to-implement examples.
+            Creating efficient firmware and scalable IoT solutions — from
+            prototype to production with a focus on low-power and reliability.
           </p>
           <div className="mt-8 sm:mt-12 flex items-center gap-4">
             <Button size="lg" className="rounded-full text-base">
