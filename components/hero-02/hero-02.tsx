@@ -11,7 +11,7 @@ import React from "react";
 
 const Hero02 = () => {
   return (
-    <div className="min-h-screen flex items-start justify-center pt-20 sm:pt-32 lg:pt-40">
+    <div className="min-h-[60vh] flex items-start justify-center pt-20 sm:pt-32 lg:pt-40">
       <div className="max-w-screen-xl w-full mx-auto grid lg:grid-cols-2 gap-12 px-6 py-8 sm:py-12">
         <div>
           <h1 className="max-w-[17ch] text-4xl md:text-5xl lg:text-[2.75rem] xl:text-5xl [font-family:var(--font-poppins)] font-bold !leading-[1.2]">
