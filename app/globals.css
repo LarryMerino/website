@@ -52,6 +52,11 @@
   --background: oklch(0.98 0.002 247);
   /* Texto: #111827 */
   --foreground: oklch(0.13 0.02 234);
+  /* Superficie elevada (Cap/Feature cards etc.) */
+  --surface-elevated: oklch(0.96 0.01 250);
+  --surface-elevated-hover: oklch(0.94 0.015 250);
+  /* Texto secundario / body sutil sobre superficies elevadas */
+  --text-subtle: oklch(0.4 0.02 250);
   --card: oklch(0.98 0.002 247);
   --card-foreground: oklch(0.13 0.02 234);
   --popover: oklch(0.98 0.002 247);
@@ -91,6 +96,10 @@
   --background: oklch(0.12 0.02 234);
   /* Texto: #F9FAFB */
   --foreground: oklch(0.98 0.002 247);
+  --surface-elevated: oklch(0.18 0.02 234);
+  --surface-elevated-hover: oklch(0.22 0.025 234);
+  /* Subtle text ajustado para mayor jerarquía (antes 0.78 L) */
+  --text-subtle: oklch(0.7 0.01 250);
   --card: oklch(0.15 0.02 234);
   --card-foreground: oklch(0.98 0.002 247);
   --popover: oklch(0.15 0.02 234);
@@ -130,6 +139,44 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground;
+    /* Aplica la fuente base de la marca (Inter) a todo el sitio */
+    @apply bg-background text-foreground font-sans;
+  }
+  /* Unifica Poppins en headings principales */
+  h1,
+  h2,
+  h3 {
+    @apply font-poppins;
+  }
+}
+
+/* Utility: optional subtle capability surface glow */
+@layer utilities {
+  /* Utilidad para forzar tipografía de marca en títulos puntuales */
+  .heading-brand {
+    @apply font-poppins;
+  }
+  .cap-surface-glow {
+    position: relative;
+  }
+  .cap-surface-glow::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    z-index: -1;
+    background: radial-gradient(
+      70% 45% at 50% 0%,
+      color-mix(in oklab, var(--primary) 5%, transparent),
+      transparent 50%
+    );
+    pointer-events: none;
+  }
+  .dark .cap-surface-glow::before {
+    background: radial-gradient(
+      88% 70% at 50% 0%,
+      color-mix(in oklab, var(--primary) 12%, transparent),
+      transparent 72%
+    );
   }
 }

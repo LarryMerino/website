@@ -17,7 +17,7 @@ const Hero02 = () => {
           <h1 className="max-w-[17ch] text-4xl md:text-5xl lg:text-[2.75rem] xl:text-5xl [font-family:var(--font-poppins)] font-bold !leading-[1.2]">
             Embedded Software Engineer
           </h1>
-          <p className="mt-6 max-w-[60ch] text-lg [font-family:var(--font-inter)] font-normal">
+          <p className="mt-6 max-w-[60ch] text-base md:text-[1.05rem] leading-relaxed text-[var(--text-subtle)] font-normal">
             Creating efficient firmware and scalable IoT solutions — from
             prototype to production with a focus on low-power and reliability.
           </p>
