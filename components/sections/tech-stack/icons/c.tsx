@@ -1,8 +1,6 @@
 import React from "react";
 import { cn } from "@/lib/utils";
 import type { SVGProps } from "./git";
-
-/* C */
 export const CIcon = React.forwardRef<SVGSVGElement, SVGProps>(
   ({ className, ...props }, ref) => (
     <svg
@@ -12,14 +10,7 @@ export const CIcon = React.forwardRef<SVGSVGElement, SVGProps>(
       className={cn("w-full h-full", className)}
       {...props}
     >
-      {/**
-       * Normalización completa: coordenadas recalculadas, sin transform.
-       * Transform original compuesto: translate(14.4 11.2) scale(0.192) aplicado a paths base.
-       * Fórmula aplicada a comandos absolutos: (x', y') = (0.192*x + 2.7648, 0.192*y + 2.1504).
-       * Comandos relativos: sólo se escalan (dx', dy') = (0.192*dx, 0.192*dy).
-       * Resultado visual idéntico, con paths ya en el sistema del viewBox 24x24.
-       */}
-      {/* Ajuste de centrado: desplazamiento aplicado X -1.1146, Y -1.8384 para equilibrar márgenes y eliminar posible clipping inferior. */}
+      
       <path
         fillRule="evenodd"
         clipRule="evenodd"

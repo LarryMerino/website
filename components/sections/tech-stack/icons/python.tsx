@@ -1,8 +1,6 @@
 import React from "react";
 import { cn } from "@/lib/utils";
 import type { SVGProps } from "./git";
-
-/* Python */
 export const PythonIcon = React.forwardRef<SVGSVGElement, SVGProps>(
   ({ className, ...props }, ref) => (
     <svg
@@ -33,13 +31,11 @@ export const PythonIcon = React.forwardRef<SVGSVGElement, SVGProps>(
           <stop offset="100%" stopColor="#FFC331" />
         </linearGradient>
       </defs>
-      {/* Parte superior (azul) - Escalada para viewBox 24x24 */}
       <path
         fill="url(#python-gradient-a)"
         className="dark:fill-[url(#python-gradient-a)]"
         d="M11.894 0.007c-6.078 0-5.699 2.633-5.699 2.633l0.007 2.726h5.799v0.819H3.904s-3.897 0.441-3.897 5.935c0 6.127 3.394 5.908 3.394 5.908h2.025v-2.844s-0.109-3.394 3.338-3.394h5.748s3.231 0.052 3.231-3.121V3.184s0.462-3.177-5.849-3.177zm-3.185 1.843c0.537 0 0.973 0.436 0.973 0.973s-0.436 0.973-0.973 0.973-0.973-0.436-0.973-0.973 0.436-0.973 0.973-0.973z"
       />
-      {/* Parte inferior (amarillo) - Escalada para viewBox 24x24 */}
       <path
         fill="url(#python-gradient-b)"
         className="dark:fill-[url(#python-gradient-b)]"
