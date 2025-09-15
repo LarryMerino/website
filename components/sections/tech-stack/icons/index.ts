@@ -1,3 +1,9 @@
+/**
+ * Re-exports for tech stack SVG icons and a convenience map (TECH_STACK_ICONS).
+ *
+ * Each icon is a React component that accepts a `className` and scales to the
+ * parent's width/height. The map is used to reference icons by key.
+ */
 import { GitIcon } from "./git";
 import { RustIcon } from "./rust";
 import { GithubIcon } from "./github";
@@ -23,6 +29,9 @@ export { NordicIcon } from "./nordic";
 export { EspressifIcon } from "./espressif";
 export { DockerIcon } from "./docker";
 
+/**
+ * Convenience dictionary to access icons by a stable key.
+ */
 export const TECH_STACK_ICONS = {
   Git: GitIcon,
   Rust: RustIcon,

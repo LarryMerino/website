@@ -1,13 +1,35 @@
+/**
+ * Tech stack logo grid primitives.
+ *
+ * Design notes
+ * - Uses Flexbox with wrap and fixed flex-basis per breakpoint to emulate N columns.
+ * - justify-center truly centers the last row when align="center".
+ * - Only vertical gaps are applied (no horizontal gap) to avoid sub‑pixel overflow
+ *   that can push items to the next line when using percentage bases.
+ * - No custom CSS. Everything is expressed via Tailwind utilities.
+ */
 import type { ComponentType } from "react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 
+/**
+ * Single logo item used by the grid.
+ * icon must accept a className (Tailwind utilities are applied for sizing and color).
+ */
 export interface TechStackLogoItem {
   icon: ComponentType<{ className?: string }>;
   label?: string;
   href?: string;
 }
 
+/**
+ * Props for the logo grid.
+ *
+ * Notes
+ * - Columns are approximated via flex-basis percentages for base/md/lg.
+ * - When justify="center", each wrapped line is horizontally centered.
+ * - gap controls vertical rhythm only; use itemPadding to fine-tune horizontal breathing.
+ */
 export interface LogoGridProps {
   items: TechStackLogoItem[];
   showLabels?: boolean;
@@ -23,7 +45,12 @@ export interface LogoGridProps {
   className?: string;
 }
 
-// Responsive grid de logos (flex-basis controlado por CSS vars)
+/**
+ * Responsive grid of technology logos.
+ * - Focus styles are preserved whether an item is a link or a div.
+ * - Labels are optional and hidden unless showLabels.
+ * - Monochrome renders icons using text color and transitions on hover/focus.
+ */
 export function LogoGrid({
   items,
   showLabels = false,

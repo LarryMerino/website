@@ -1,6 +1,14 @@
 import { LogoGrid } from "./logo-grid";
 import { TECH_STACK_ICONS } from "./icons";
 
+/**
+ * High-level Tech Stack section with heading, intro and grouped logo grids.
+ *
+ * Behavior
+ * - align="center" horizontally centers headings and the grids. The grid implementation
+ *   centers the last wrapped line as well.
+ * - Per-group column counts are tuned to the number of items to avoid visual holes.
+ */
 export interface TechStackSectionProps {
   align?: "start" | "center";
   title?: string;
@@ -52,6 +60,7 @@ export default function TechStackSection({
           )}
         </div>
 
+        {/* Languages */}
         <div className="mt-12 md:mt-16">
           <p
             className={
@@ -75,6 +84,7 @@ export default function TechStackSection({
           />
         </div>
 
+        {/* RTOS & SDKs */}
         <div className="mt-12 md:mt-16">
           <p
             className={
@@ -98,6 +108,7 @@ export default function TechStackSection({
           />
         </div>
 
+        {/* Tools */}
         <div className="mt-12 md:mt-16">
           <p
             className={
