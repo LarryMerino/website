@@ -20,6 +20,38 @@ const eslintConfig = [
       "next-env.d.ts",
     ],
   },
+  {
+    files: ["**/*.ts", "**/*.tsx"],
+    plugins: {
+      local: (await import("./eslint-rules/no-ui-literals.js")).default,
+    },
+    rules: {
+      "local/no-ui-literals": [
+        "warn",
+        {
+          allowInFiles: ["/content/", "/lib/content/"],
+          ignoreAttributes: [
+            "className",
+            "id",
+            "data-*",
+            "aria-*",
+            "stroke",
+            "fill",
+            "viewBox",
+            "role",
+            "width",
+            "height",
+          ],
+          ignorePatterns: [
+            // Ignora placeholders cortos frecuentemente no copy
+            "^#.+$", // hashtags
+            "^[A-Z0-9_]{2,}$", // siglas/constantes
+          ],
+          minLetters: 2,
+        },
+      ],
+    },
+  },
 ];
 
 export default eslintConfig;
