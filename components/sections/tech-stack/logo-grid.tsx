@@ -7,6 +7,7 @@
  * - Only vertical gaps are applied (no horizontal gap) to avoid sub‑pixel overflow
  *   that can push items to the next line when using percentage bases.
  * - No custom CSS. Everything is expressed via Tailwind utilities.
+ * - Accessibility: items with `href` are rendered as links y reciben estilos de foco (ring);
  */
 import type { ComponentType } from "react";
 import Link from "next/link";
@@ -47,9 +48,9 @@ export interface LogoGridProps {
 
 /**
  * Responsive grid of technology logos.
- * - Focus styles are preserved whether an item is a link or a div.
- * - Labels are optional and hidden unless showLabels.
- * - Monochrome renders icons using text color and transitions on hover/focus.
+ * - Focus styles (ring) solo en enlaces. Los no-links mantienen accesibilidad con `aria-label`.
+ * - Labels son opcionales; se muestran solo si `showLabels`.
+ * - `monochrome` usa el color del texto para los SVG (requiere icons compatibles con `currentColor`).
  */
 export function LogoGrid({
   items,
@@ -129,6 +130,17 @@ export function LogoGrid({
       >
         {items.map((item, idx) => {
           const Icon = item.icon;
+          const wrapperBase = cn(
+            "block rounded-lg shrink-0 grow-0 outline-none",
+            mobileColumns ? BASIS_BASE[mobileColumns] : "",
+            tabletColumns ? BASIS_MD[tabletColumns] : "",
+            desktopColumns ? BASIS_LG[desktopColumns] : ""
+          );
+          const wrapperLink = cn(
+            wrapperBase,
+            "focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+          );
+          const wrapperDiv = wrapperBase;
 
           const content = (
             <div
@@ -136,7 +148,7 @@ export function LogoGrid({
                 "group flex flex-col items-center justify-center rounded-lg",
                 paddingClasses[itemPadding],
                 "transition-[transform,filter,color] duration-300 ease-out",
-                "hover:scale-[1.03] focus-within:scale-[1.03]",
+                "hover:scale-[1.02] focus-within:scale-[1.02] md:hover:scale-[1.03] md:focus-within:scale-[1.03]",
                 "filter hover:brightness-125 focus-within:brightness-125",
                 "motion-reduce:transition-none motion-reduce:hover:scale-100 motion-reduce:focus-within:scale-100"
               )}
@@ -156,7 +168,7 @@ export function LogoGrid({
               {showLabels && item.label && (
                 <span
                   className={cn(
-                    "mt-2 text-xs md:text-sm font-medium text-center text-muted-foreground leading-none",
+                    "mt-2 text-sm font-medium text-center leading-none text-[var(--text-subtle)]",
                     "group-hover:text-foreground group-focus-within:text-foreground",
                     "transition-colors duration-300 ease-out",
                     "motion-reduce:transition-none"
@@ -169,30 +181,11 @@ export function LogoGrid({
           );
 
           return item.href ? (
-            <Link
-              key={idx}
-              href={item.href}
-              className={cn(
-                "block outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded-lg",
-                mobileColumns ? BASIS_BASE[mobileColumns] : "",
-                tabletColumns ? BASIS_MD[tabletColumns] : "",
-                desktopColumns ? BASIS_LG[desktopColumns] : "",
-                "shrink-0 grow-0"
-              )}
-            >
+            <Link key={idx} href={item.href} className={wrapperLink}>
               {content}
             </Link>
           ) : (
-            <div
-              key={idx}
-              className={cn(
-                "block outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded-lg",
-                mobileColumns ? BASIS_BASE[mobileColumns] : "",
-                tabletColumns ? BASIS_MD[tabletColumns] : "",
-                desktopColumns ? BASIS_LG[desktopColumns] : "",
-                "shrink-0 grow-0"
-              )}
-            >
+            <div key={idx} aria-label={item.label} className={wrapperDiv}>
               {content}
             </div>
           );
