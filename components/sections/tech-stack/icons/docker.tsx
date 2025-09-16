@@ -1,6 +1,8 @@
 import React from "react";
 import { cn } from "@/lib/utils";
 import type { SVGProps } from "./git";
+
+/* Docker */
 export const DockerIcon = React.forwardRef<SVGSVGElement, SVGProps>(
   ({ className, ...props }, ref) => (
     <svg

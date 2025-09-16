@@ -2,6 +2,8 @@ import React from "react";
 import { cn } from "@/lib/utils";
 
 export type SVGProps = React.SVGProps<SVGSVGElement>;
+
+/* Git */
 export const GitIcon = React.forwardRef<SVGSVGElement, SVGProps>(
   ({ className, ...props }, ref) => (
     <svg

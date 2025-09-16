@@ -1,6 +1,8 @@
 import React from "react";
 import { cn } from "@/lib/utils";
 import type { SVGProps } from "./git";
+
+/* C */
 export const CIcon = React.forwardRef<SVGSVGElement, SVGProps>(
   ({ className, ...props }, ref) => (
     <svg
@@ -10,7 +12,6 @@ export const CIcon = React.forwardRef<SVGSVGElement, SVGProps>(
       className={cn("w-full h-full", className)}
       {...props}
     >
-      
       <path
         fillRule="evenodd"
         clipRule="evenodd"

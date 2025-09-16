@@ -1,6 +1,8 @@
 import React from "react";
 import { cn } from "@/lib/utils";
 import type { SVGProps } from "./git";
+
+/* Python */
 export const PythonIcon = React.forwardRef<SVGSVGElement, SVGProps>(
   ({ className, ...props }, ref) => (
     <svg
