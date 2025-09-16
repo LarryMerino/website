@@ -8,58 +8,99 @@ import {
   TypingAnimation,
 } from "@/components/ui/shadcn-io/terminal";
 import React from "react";
+import { HOME_HERO } from "@/content/home.hero";
 
-const Hero02 = () => {
+interface Hero02Props {
+  title?: string;
+  intro?: string;
+  primaryCtaLabel?: string;
+  primaryCtaHref?: string;
+  secondaryCtaLabel?: string;
+  secondaryCtaHref?: string;
+}
+
+const Hero02 = ({
+  title = HOME_HERO.title,
+  intro = HOME_HERO.intro,
+  primaryCtaLabel = HOME_HERO.primaryCta?.label,
+  primaryCtaHref = HOME_HERO.primaryCta?.href,
+  secondaryCtaLabel = HOME_HERO.secondaryCta?.label,
+  secondaryCtaHref = HOME_HERO.secondaryCta?.href,
+}: Hero02Props) => {
   return (
     <div className="min-h-[60vh] flex items-start justify-center pt-20 sm:pt-32 lg:pt-40">
       <div className="max-w-screen-xl w-full mx-auto grid lg:grid-cols-2 gap-12 px-6 py-8 sm:py-12">
         <div>
           <h1 className="max-w-[17ch] text-4xl md:text-5xl lg:text-[2.75rem] xl:text-5xl [font-family:var(--font-poppins)] font-bold !leading-[1.2]">
-            Embedded Software Engineer for IoT Systems
+            {title}
           </h1>
-          <p className="mt-6 max-w-[60ch] text-base md:text-[1.05rem] leading-relaxed text-[var(--text-subtle)] font-normal">
-            I design the firmware that keeps connected devices efficient,
-            reliable, and ready to grow beyond the prototype stage
-          </p>
+          {intro && (
+            <p className="mt-6 max-w-[60ch] text-base md:text-[1.05rem] leading-relaxed text-[var(--text-subtle)] font-normal">
+              {intro}
+            </p>
+          )}
           <div className="mt-8 sm:mt-12 flex items-center gap-4">
-            <Button size="lg" className="rounded-full text-base">
-              Get Started <ArrowUpRight className="!h-5 !w-5" />
-            </Button>
-            <Button
-              variant="outline"
-              size="lg"
-              className="rounded-full text-base shadow-none"
-            >
-              <CirclePlay className="!h-5 !w-5" /> Watch Demo
-            </Button>
+            {primaryCtaLabel && primaryCtaHref && (
+              <Button size="lg" className="rounded-full text-base" asChild>
+                <a href={primaryCtaHref}>
+                  {primaryCtaLabel} <ArrowUpRight className="!h-5 !w-5" />
+                </a>
+              </Button>
+            )}
+            {secondaryCtaLabel && secondaryCtaHref && (
+              <Button
+                variant="outline"
+                size="lg"
+                className="rounded-full text-base shadow-none"
+                asChild
+              >
+                <a href={secondaryCtaHref}>
+                  <CirclePlay className="!h-5 !w-5" /> {secondaryCtaLabel}
+                </a>
+              </Button>
+            )}
           </div>
         </div>
         <div className="w-full">
           <Terminal className="w-full max-w-none">
-            <AnimatedSpan delay={0}>
-              <LeadingChar className="text-green-500">$</LeadingChar>
-              <AnimatedContent>make iot_product</AnimatedContent>
-            </AnimatedSpan>
-            <TypingAnimation delay={1000} duration={55}>
-              <LeadingChar className="text-blue-500">[INFO]</LeadingChar>
-              <AnimatedContent>Building IoT system...</AnimatedContent>
-            </TypingAnimation>
-            <TypingAnimation delay={3400} duration={55}>
-              <LeadingChar className="text-green-500">[OK]</LeadingChar>
-              <AnimatedContent>Optimizing for low-power</AnimatedContent>
-            </TypingAnimation>
-            <TypingAnimation delay={5800} duration={55}>
-              <LeadingChar className="text-green-500">[OK]</LeadingChar>
-              <AnimatedContent>Ensuring reliability</AnimatedContent>
-            </TypingAnimation>
-            <TypingAnimation delay={8200} duration={55}>
-              <LeadingChar className="text-green-500">[OK]</LeadingChar>
-              <AnimatedContent>Preparing for production</AnimatedContent>
-            </TypingAnimation>
-            <TypingAnimation delay={10600} duration={55}>
-              <LeadingChar>🚀</LeadingChar>
-              <AnimatedContent>Deployment ready!</AnimatedContent>
-            </TypingAnimation>
+            {HOME_HERO.terminalLines.map((line, idx) => {
+              if (line.type === "command") {
+                return (
+                  <AnimatedSpan key={idx} delay={line.delay || 0}>
+                    <LeadingChar className="text-green-500">
+                      {line.prefix || "$"}
+                    </LeadingChar>
+                    <AnimatedContent>{line.text}</AnimatedContent>
+                  </AnimatedSpan>
+                );
+              }
+              if (line.type === "final") {
+                return (
+                  <TypingAnimation
+                    key={idx}
+                    delay={line.delay}
+                    duration={line.duration || 55}
+                  >
+                    <LeadingChar>{line.icon || ""}</LeadingChar>
+                    <AnimatedContent>{line.text}</AnimatedContent>
+                  </TypingAnimation>
+                );
+              }
+              // status
+              const levelClass =
+                line.level === "info" ? "text-blue-500" : "text-green-500";
+              const levelLabel = line.level === "info" ? "[INFO]" : "[OK]";
+              return (
+                <TypingAnimation
+                  key={idx}
+                  delay={line.delay}
+                  duration={line.duration || 55}
+                >
+                  <LeadingChar className={levelClass}>{levelLabel}</LeadingChar>
+                  <AnimatedContent>{line.text}</AnimatedContent>
+                </TypingAnimation>
+              );
+            })}
           </Terminal>
         </div>
       </div>

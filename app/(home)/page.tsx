@@ -9,9 +9,6 @@ export default function Home() {
       <main>
         <Hero02 />
         <CapabilitiesSection
-          eyebrow="What I Do"
-          title="I Bring IoT Devices to Life Through Firmware"
-          intro="I focus on writing the kind of embedded code that makes connected devices last longer, talk to each other reliably, and evolve from rough prototypes into something people can depend on"
           desktopColumns={2}
           cardHeightMobile={290}
           cardHeight={270}

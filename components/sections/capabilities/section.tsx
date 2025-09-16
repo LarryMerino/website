@@ -5,7 +5,8 @@
  */
 import * as React from "react";
 import { cn } from "@/lib/utils";
-import { CAPABILITIES, type CapabilityItem } from "./data";
+import type { CapabilityItem } from "@/lib/content/types";
+import { HOME_CAPABILITIES } from "@/content/home.capabilities";
 import CapabilityGrid from "./capability-grid";
 
 /** Public props for CapabilitiesSection */
@@ -40,10 +41,10 @@ export interface CapabilitiesSectionProps {
 
 export default function CapabilitiesSection({
   id = "capabilities",
-  title = "Capabilities",
-  eyebrow,
-  intro,
-  items = CAPABILITIES,
+  title = HOME_CAPABILITIES.title,
+  eyebrow = HOME_CAPABILITIES.eyebrow,
+  intro = HOME_CAPABILITIES.intro,
+  items = HOME_CAPABILITIES.items,
   className,
   gridClassName,
   cardSize = "default",

@@ -12,7 +12,7 @@
 import * as React from "react";
 import { cn } from "@/lib/utils";
 import CapabilityCard from "@/components/ui/capability-card";
-import type { CapabilityItem } from "./data";
+import type { CapabilityItem } from "@/lib/content/types";
 
 /** Map Tailwind gap utility → raw pixel value for basis calculations. */
 const GAP_VALUE_MAP: Record<string, string> = {

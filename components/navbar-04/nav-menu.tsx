@@ -6,50 +6,37 @@ import {
 } from "@/components/ui/navigation-menu";
 import { NavigationMenuProps } from "@radix-ui/react-navigation-menu";
 import Link from "next/link";
+import { SITE_CONTENT } from "@/content/site";
 
-export const NavMenu = (props: NavigationMenuProps) => (
-  <NavigationMenu {...props}>
-    <NavigationMenuList className="gap-6 space-x-0 data-[orientation=vertical]:flex-col data-[orientation=vertical]:items-start">
-      <NavigationMenuItem>
-        <NavigationMenuLink asChild>
-          <Link
-            href="#"
-            className="[font-family:var(--font-poppins)] font-medium tracking-tight"
-          >
-            Home
-          </Link>
-        </NavigationMenuLink>
-      </NavigationMenuItem>
-      <NavigationMenuItem>
-        <NavigationMenuLink asChild>
-          <Link
-            href="#"
-            className="[font-family:var(--font-poppins)] font-medium tracking-tight"
-          >
-            Blog
-          </Link>
-        </NavigationMenuLink>
-      </NavigationMenuItem>
-      <NavigationMenuItem>
-        <NavigationMenuLink asChild>
-          <Link
-            href="#"
-            className="[font-family:var(--font-poppins)] font-medium tracking-tight"
-          >
-            About
-          </Link>
-        </NavigationMenuLink>
-      </NavigationMenuItem>
-      <NavigationMenuItem>
-        <NavigationMenuLink asChild>
-          <Link
-            href="#"
-            className="[font-family:var(--font-poppins)] font-medium tracking-tight"
-          >
-            Contact Us
-          </Link>
-        </NavigationMenuLink>
-      </NavigationMenuItem>
-    </NavigationMenuList>
-  </NavigationMenu>
-);
+export const NavMenu = (props: NavigationMenuProps) => {
+  const items = SITE_CONTENT.nav;
+  return (
+    <NavigationMenu {...props}>
+      <NavigationMenuList className="gap-6 space-x-0 data-[orientation=vertical]:flex-col data-[orientation=vertical]:items-start">
+        {items.map((item) => (
+          <NavigationMenuItem key={item.href + item.label}>
+            <NavigationMenuLink asChild>
+              {item.external ? (
+                <a
+                  href={item.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="[font-family:var(--font-poppins)] font-medium tracking-tight"
+                >
+                  {item.label}
+                </a>
+              ) : (
+                <Link
+                  href={item.href}
+                  className="[font-family:var(--font-poppins)] font-medium tracking-tight"
+                >
+                  {item.label}
+                </Link>
+              )}
+            </NavigationMenuLink>
+          </NavigationMenuItem>
+        ))}
+      </NavigationMenuList>
+    </NavigationMenu>
+  );
+};

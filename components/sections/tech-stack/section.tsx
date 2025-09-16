@@ -1,27 +1,6 @@
 import { LogoGrid } from "./logo-grid";
-import type { TechStackLogoItem } from "./logo-grid";
-import { TECH_STACK_ICONS } from "./icons";
-
-// Static tech stack groups (module-level to avoid recreation on every render)
-const LANGUAGES: TechStackLogoItem[] = [
-  { icon: TECH_STACK_ICONS.C, label: "C" },
-  { icon: TECH_STACK_ICONS.Python, label: "Python" },
-  { icon: TECH_STACK_ICONS.Rust, label: "Rust" },
-];
-
-const RTOS_SDKS: TechStackLogoItem[] = [
-  { icon: TECH_STACK_ICONS.FreeRTOS, label: "FreeRTOS" },
-  { icon: TECH_STACK_ICONS.Zephyr, label: "Zephyr" },
-  { icon: TECH_STACK_ICONS.Nordic, label: "Nordic" },
-  { icon: TECH_STACK_ICONS.Espressif, label: "ESPRESSIF" },
-];
-
-const TOOLS: TechStackLogoItem[] = [
-  { icon: TECH_STACK_ICONS.Git, label: "git" },
-  { icon: TECH_STACK_ICONS.GitHub, label: "GitHub" },
-  { icon: TECH_STACK_ICONS.Docker, label: "Docker" },
-  // NOTE: Add more tools here if needed
-];
+import type { TechStackLogoItem } from "@/lib/content/types";
+import { HOME_TECH_STACK } from "@/content/home.tech-stack";
 
 /**
  * High-level Tech Stack section with heading, intro and grouped logo grids.
@@ -40,12 +19,23 @@ export interface TechStackSectionProps {
   align?: "start" | "center";
   title?: string;
   intro?: string;
+  groups?: Array<{
+    id: string;
+    title: string;
+    items: TechStackLogoItem[];
+    columns?: {
+      mobile?: 2 | 3 | 4;
+      tablet?: 2 | 3 | 4 | 5 | 6;
+      desktop?: 2 | 3 | 4 | 5 | 6 | 7 | 8;
+    };
+  }>;
 }
 
 export default function TechStackSection({
   align = "center",
-  title = "Technologies I Build With",
-  intro = "I design IoT solutions across the entire stack, from bare-metal firmware to scalable cloud tools.",
+  title = HOME_TECH_STACK.title,
+  intro = HOME_TECH_STACK.intro,
+  groups = HOME_TECH_STACK.groups,
 }: TechStackSectionProps) {
   const justify = align === "center" ? "center" : "start";
 
@@ -66,81 +56,34 @@ export default function TechStackSection({
             </p>
           )}
         </div>
-
-        {/* Languages */}
-        <div className="mt-12 md:mt-16">
-          <h3
-            className={
-              "heading-brand text-base font-semibold tracking-wide uppercase text-foreground/80 block w-fit mb-4 md:mb-6" +
-              (align === "center" ? " text-center mx-auto" : "")
-            }
+        {groups.map((group, index) => (
+          <div
+            key={group.id}
+            className={index === 0 ? "mt-12 md:mt-16" : "mt-16 md:mt-24"}
           >
-            Languages
-          </h3>
-          <LogoGrid
-            items={LANGUAGES}
-            showLabels
-            monochrome={false}
-            mobileColumns={2}
-            tabletColumns={3}
-            desktopColumns={3}
-            iconSize="md"
-            iconSizeMd="lg"
-            itemPadding="sm"
-            gap="compact"
-            justify={justify}
-          />
-        </div>
-
-        {/* RTOS & SDKs */}
-        <div className="mt-16 md:mt-24">
-          <h3
-            className={
-              "heading-brand text-base font-semibold tracking-wide uppercase text-foreground/80 block w-fit mb-4 md:mb-6" +
-              (align === "center" ? " text-center mx-auto" : "")
-            }
-          >
-            RTOS & SDKs
-          </h3>
-          <LogoGrid
-            items={RTOS_SDKS}
-            showLabels
-            monochrome={false}
-            mobileColumns={2}
-            tabletColumns={4}
-            desktopColumns={4}
-            iconSize="md"
-            iconSizeMd="lg"
-            itemPadding="sm"
-            gap="compact"
-            justify={justify}
-          />
-        </div>
-
-        {/* Tools */}
-        <div className="mt-16 md:mt-24">
-          <h3
-            className={
-              "heading-brand text-base font-semibold tracking-wide uppercase text-foreground/80 block w-fit mb-4 md:mb-6" +
-              (align === "center" ? " text-center mx-auto" : "")
-            }
-          >
-            Tools
-          </h3>
-          <LogoGrid
-            items={TOOLS}
-            showLabels
-            monochrome={false}
-            mobileColumns={2}
-            tabletColumns={4}
-            desktopColumns={3}
-            iconSize="md"
-            iconSizeMd="lg"
-            itemPadding="sm"
-            gap="compact"
-            justify={justify}
-          />
-        </div>
+            <h3
+              className={
+                "heading-brand text-base font-semibold tracking-wide uppercase text-foreground/80 block w-fit mb-4 md:mb-6" +
+                (align === "center" ? " text-center mx-auto" : "")
+              }
+            >
+              {group.title}
+            </h3>
+            <LogoGrid
+              items={group.items}
+              showLabels
+              monochrome={false}
+              mobileColumns={group.columns?.mobile ?? 3}
+              tabletColumns={group.columns?.tablet}
+              desktopColumns={group.columns?.desktop ?? 6}
+              iconSize="md"
+              iconSizeMd="lg"
+              itemPadding="sm"
+              gap="compact"
+              justify={justify}
+            />
+          </div>
+        ))}
       </div>
     </section>
   );

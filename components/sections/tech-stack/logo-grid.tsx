@@ -9,19 +9,15 @@
  * - No custom CSS. Everything is expressed via Tailwind utilities.
  * - Accessibility: items with `href` are rendered as links y reciben estilos de foco (ring);
  */
-import type { ComponentType } from "react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
+import type { TechStackLogoItem } from "@/lib/content/types";
 
 /**
  * Single logo item used by the grid.
  * icon must accept a className (Tailwind utilities are applied for sizing and color).
  */
-export interface TechStackLogoItem {
-  icon: ComponentType<{ className?: string }>;
-  label?: string;
-  href?: string;
-}
+// Using the shared TechStackLogoItem type from lib/content/types
 
 /**
  * Props for the logo grid.
