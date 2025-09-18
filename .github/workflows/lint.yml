@@ -34,9 +34,3 @@ jobs:
       - name: Run ESLint
         id: eslint
         run: pnpm exec eslint . --max-warnings=200
-
-      - name: Fail if ESLint errors
-        if: steps.eslint.outcome == 'failure'
-        run: |
-          echo "ESLint reported errors" >&2
-          exit 1
