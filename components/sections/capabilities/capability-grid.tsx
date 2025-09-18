@@ -214,8 +214,8 @@ export const CapabilityGrid = React.memo(function CapabilityGrid({
     const base = toCssSize(cardHeight);
     const mobile = toCssSize(cardHeightMobile);
     const style: React.CSSProperties = {};
-    if (mobile) (style as any)["--cap-h-mobile"] = mobile;
-    if (base) (style as any)["--cap-h-base"] = base;
+    if (mobile) (style as Record<string, string>)["--cap-h-mobile"] = mobile;
+    if (base) (style as Record<string, string>)["--cap-h-base"] = base;
     return style;
   }, [hasResponsiveHeight, cardHeight, cardHeightMobile, toCssSize]);
 
@@ -227,25 +227,35 @@ export const CapabilityGrid = React.memo(function CapabilityGrid({
     [hasResponsiveHeight, cardHeight, cardMinHeight]
   );
 
-  if (alignLastRowCenter) {
+  // Precompute layout variants and style (avoid conditional hook usage)
+  const flexCenterParams = React.useMemo(() => {
+    if (!alignLastRowCenter) return null;
     const gapValue = resolveGapValue(gap);
     const colsMobile = mobileColumns || 1;
     const colsTablet = tabletColumns || colsMobile;
     const colsDesktop = desktopColumns || colsTablet;
-
     const makeBasis = (cols: number) =>
       `calc((100% - ( ${cols} - 1 ) * var(--gap)) / ${cols})`;
-    const style: React.CSSProperties = React.useMemo(
-      () => ({
-        ["--gap" as any]: gapValue,
-        ["--basis-mobile" as any]: makeBasis(colsMobile),
-        ["--basis-tablet" as any]: makeBasis(colsTablet),
-        ["--basis-desktop" as any]: makeBasis(colsDesktop),
-        ...(containerHeightVars || {}),
-      }),
-      [gapValue, colsMobile, colsTablet, colsDesktop, containerHeightVars]
-    );
+    const style: React.CSSProperties = {
+      ...(containerHeightVars || {}),
+    };
+    const varStyle = style as Record<string, string>;
+    varStyle["--gap"] = gapValue;
+    varStyle["--basis-mobile"] = makeBasis(colsMobile);
+    varStyle["--basis-tablet"] = makeBasis(colsTablet);
+    varStyle["--basis-desktop"] = makeBasis(colsDesktop);
+    return { style, colsMobile, colsTablet, colsDesktop };
+  }, [
+    alignLastRowCenter,
+    gap,
+    mobileColumns,
+    tabletColumns,
+    desktopColumns,
+    containerHeightVars,
+  ]);
 
+  if (flexCenterParams) {
+    const { style, colsMobile, colsTablet, colsDesktop } = flexCenterParams;
     return (
       <ul
         className={cn(

@@ -21,24 +21,48 @@ const BASE_TEXT_CLASS = "text-sm font-normal tracking-tight font-mono";
  */
 const isSpecificComponent = (
   element: React.ReactElement,
-  target: React.ComponentType<any>,
+  target: React.ElementType,
   displayName: string
 ): boolean => {
-  const t: any = element.type;
+  const LAZY = Symbol.for("react.lazy");
+
+  const getTypeName = (val: unknown): string | undefined => {
+    if (typeof val === "function") {
+      const fn = val as { displayName?: string; name?: string };
+      return fn.displayName || fn.name;
+    }
+    if (val && typeof val === "object" && "displayName" in (val as object)) {
+      const dn = (val as { displayName?: unknown }).displayName;
+      return typeof dn === "string" ? dn : undefined;
+    }
+    return undefined;
+  };
+
+  const isLazy = (
+    val: unknown
+  ): val is { $$typeof: symbol; _payload?: { value?: unknown } } => {
+    return (
+      typeof val === "object" &&
+      val !== null &&
+      "$$typeof" in (val as object) &&
+      (val as { $$typeof?: unknown }).$$typeof === LAZY
+    );
+  };
+
+  const t = element.type as unknown;
   if (!t) return false;
 
   // Direct reference or displayName/name match
   if (t === target) return true;
-  const tName =
-    (typeof t === "function" && (t.displayName || t.name)) || t.displayName;
+  const tName = getTypeName(t);
   if (tName === displayName) return true;
 
   // Minimal lazy component support (mirrors previous behavior)
-  if (t && t.$$typeof === Symbol.for("react.lazy")) {
+  if (isLazy(t)) {
     const payload = t._payload;
     const value = payload?.value;
     if (typeof value === "function") {
-      const vName = value.displayName || value.name;
+      const vName = getTypeName(value);
       if (value === target || vName === displayName) return true;
     }
     // Turbopack/SSR array metadata case
@@ -73,7 +97,10 @@ const extractPlainText = (node: React.ReactNode): string => {
       return (node as React.ReactNode[]).map(extractPlainText).join("");
     default:
       return React.isValidElement(node)
-        ? extractPlainText((node as React.ReactElement<any>).props?.children)
+        ? extractPlainText(
+            (node as React.ReactElement<{ children?: React.ReactNode }>).props
+              ?.children
+          )
         : "";
   }
 };
@@ -116,13 +143,13 @@ const parseTypingChildren = (
     if (!React.isValidElement(child)) continue;
     if (!leadingCharComponent && isLeadingCharComponent(child)) {
       leadingCharComponent = child;
-      const c = child as React.ReactElement<any>;
+      const c = child as React.ReactElement<{ children?: React.ReactNode }>;
       leadingCharText = extractPlainText(c.props?.children);
       continue;
     }
     if (!animatedContentComponent && isAnimatedContentComponent(child)) {
       animatedContentComponent = child;
-      const c = child as React.ReactElement<any>;
+      const c = child as React.ReactElement<{ children?: React.ReactNode }>;
       const raw = extractPlainText(c.props?.children);
       contentText = raw && !raw.startsWith(" ") ? " " + raw : raw;
     }
@@ -255,6 +282,7 @@ export const TypingAnimation = ({
   const animatedContentComponent = parsed.animatedContentComponent;
   const leadingCharText = parsed.leadingCharText;
   const fullTextToAnimate = parsed.fullText;
+  const hasLeadingChar = Boolean(leadingCharComponent);
 
   useEffect(() => {
     const startTimeout = setTimeout(() => {
@@ -271,7 +299,7 @@ export const TypingAnimation = ({
       if (i < fullTextToAnimate.length) {
         const currentText = fullTextToAnimate.substring(0, i + 1);
 
-        if (leadingCharComponent && i < leadingCharText.length) {
+        if (hasLeadingChar && i < leadingCharText.length) {
           setDisplayedLeadingChar(currentText);
           setDisplayedText("");
         } else {
@@ -288,7 +316,7 @@ export const TypingAnimation = ({
     return () => {
       clearInterval(typingEffect);
     };
-  }, [fullTextToAnimate, leadingCharText, duration, started]);
+  }, [fullTextToAnimate, leadingCharText, duration, started, hasLeadingChar]);
 
   // Nothing to animate
   if (!fullTextToAnimate) {
@@ -302,14 +330,16 @@ export const TypingAnimation = ({
       {...props}
     >
       {leadingCharComponent
-        ? React.cloneElement(leadingCharComponent as any, {
-            children: displayedLeadingChar,
-          })
+        ? React.cloneElement<LeadingCharProps>(
+            leadingCharComponent as React.ReactElement<LeadingCharProps>,
+            { children: displayedLeadingChar }
+          )
         : null}
       {animatedContentComponent
-        ? React.cloneElement(animatedContentComponent as any, {
-            children: displayedText,
-          })
+        ? React.cloneElement<AnimatedContentProps>(
+            animatedContentComponent as React.ReactElement<AnimatedContentProps>,
+            { children: displayedText }
+          )
         : typeof children === "string"
         ? fullTextToAnimate.substring(
             0,

@@ -20,7 +20,7 @@ export interface CapabilityCardProps
   size?: "compact" | "default";
   interactive?: boolean;
   iconClassName?: string;
-  as?: React.ElementType;
+  as?: keyof React.JSX.IntrinsicElements | React.ComponentType<unknown>; // limited escape hatch; if custom component supply required props
   /** Enables subtle radial glow */
   glow?: boolean;
 }
@@ -58,7 +58,7 @@ const CapabilityCardBase = React.forwardRef<
   },
   ref
 ) {
-  const Component: any = as;
+  const Component = as as React.ElementType;
   const content = (
     <Component
       ref={ref}
