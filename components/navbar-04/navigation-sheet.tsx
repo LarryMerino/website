@@ -1,3 +1,10 @@
+/**
+ * NavigationSheet — Mobile navigation presented in a sheet/drawer.
+ *
+ * Accessibility:
+ * - The open button is an `icon` button with accessible label derived from context; pair with `SheetTitle`/`SheetDescription` (sr-only) for screen readers.
+ * - Content renders the brand via {@link BrandLink} and a vertical {@link NavMenu}.
+ */
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -7,7 +14,7 @@ import {
   SheetDescription,
 } from "@/components/ui/sheet";
 import { Menu } from "lucide-react";
-import { Logo } from "@/components/navbar-04/logo";
+import { BrandLink } from "@/components/navbar-04/brand-link";
 import { NavMenu } from "@/components/navbar-04/nav-menu";
 
 export const NavigationSheet = () => {
@@ -28,7 +35,7 @@ export const NavigationSheet = () => {
           Access the main navigation links and sections of the website
         </SheetDescription>
         <div className="flex flex-col items-start gap-6">
-          <Logo />
+          <BrandLink className="ml-0" />
           <NavMenu
             orientation="vertical"
             className="space-y-4 text-lg [font-family:var(--font-poppins)]"

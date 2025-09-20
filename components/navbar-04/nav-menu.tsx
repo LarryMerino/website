@@ -1,3 +1,11 @@
+/**
+ * NavMenu — Desktop/vertical navigation list built on top of Radix NavigationMenu.
+ *
+ * Data source: items are read from `SITE_CONTENT.nav` and support internal and external links.
+ *
+ * Props: accepts and forwards {@link NavigationMenuProps} to the underlying Radix component
+ * so callers can control orientation, className, etc.
+ */
 import {
   NavigationMenu,
   NavigationMenuItem,

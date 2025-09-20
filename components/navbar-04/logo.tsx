@@ -1,3 +1,10 @@
+/**
+ * Logo — SVG mark of the site brand.
+ *
+ * Usage:
+ * - Prefer rendering inside {@link BrandLink} to keep consistent semantics and accessible labeling.
+ * - When used alone, provide an adjacent accessible name (e.g. aria-label on the link/button).
+ */
 export const Logo = () => (
   <svg
     id="logo-7"
