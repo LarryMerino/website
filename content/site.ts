@@ -20,7 +20,7 @@ export interface SiteContent {
 }
 
 export const SITE_CONTENT: SiteContent = {
-  name: "Embedded IoT Engineering",
+  name: "Larry Merino",
   description:
     "Firmware + connectivity for low-power, reliable, production-bound IoT devices.",
   nav: [
@@ -30,7 +30,7 @@ export const SITE_CONTENT: SiteContent = {
     { label: "Contact", href: "/contact" },
   ],
   footer: {
-    copyright: `© ${new Date().getFullYear()} Embedded IoT Engineering. All rights reserved.`,
+    copyright: `© ${new Date().getFullYear()} Larry Merino. All rights reserved.`,
     links: [
       { label: "Privacy", href: "/privacy" },
       { label: "Terms", href: "/terms" },
